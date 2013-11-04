@@ -1,0 +1,56 @@
+﻿@using FirebirdWars.Models.ViewModels
+
+@model IEnumerable<UserUnitsInProgressModel>
+
+<table class="table-striped table-hover table table-bordered" id="buildings-in-progress">
+    @if (Model.Any())
+    {
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Duration</th>
+                <th>Completion</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var unit in Model)
+            {
+                <tr>
+                    <td>@unit.Quantity x @unit.Type</td>
+                    <td class="timer" data-time="@unit.CompletionDate.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds"></td>
+                    <td>@unit.CompletionDate</td>
+                    <td>
+                        @Html.ActionLink("Cancel", "CancelCreateUnit", "UnitsBuildings", new { id = unit.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        setInterval(function () {
+            $('.timer').each(function (e, i) {
+                var dateTimeAttribute = $(this).data("time");
+
+                var cDate = new Date(parseInt(dateTimeAttribute));
+                var now = new Date();
+
+                var c = new Date(cDate - now);
+
+                var dformat = [
+                    c.getHours() - 2, c.getMinutes(), c.getSeconds()
+                ].join(':');
+
+                $(this).text(dformat);
+
+                if (c.getHours() - 2 < 0) {
+                    $(this).parent().remove();
+                    window.location.reload();
+                }
+            })
+        }, 1000);
+    });
+</script>

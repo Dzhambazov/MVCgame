@@ -1,0 +1,16 @@
+﻿@using FirebirdWars.Models.Enums
+@model FirebirdWars.Models.ApplicationUser
+
+@{
+    var lumberjacks = Model.Buildings.FirstOrDefault(b => b.Building.Type == "Lumberjacks");
+    var farm = Model.Buildings.FirstOrDefault(b => b.Building.Type == "Farm");
+    var ironMine = Model.Buildings.FirstOrDefault(b => b.Building.Type == "Iron Mine");
+
+    var woodProduction = Convert.ToInt32((int)BuildingsIncome.Wood * Math.Pow(1.15, lumberjacks.BuildingLevel - 1)).ToString();
+    var foodProduction = Convert.ToInt32((int)BuildingsIncome.Food * Math.Pow(1.15, farm.BuildingLevel - 1)).ToString();
+    var ironProduction = Convert.ToInt32((int)BuildingsIncome.Iron * Math.Pow(1.15, ironMine.BuildingLevel - 1)).ToString();
+}
+
+<p>Wood: @woodProduction per hour</p>
+<p>Food: @foodProduction per hour</p>
+<p>Iron: @ironProduction per hour</p>

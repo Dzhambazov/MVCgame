@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Lumberjacks";
+}
+
+<h2>Lumberjacks</h2>
+<div class="hero-unit row-fluid">
+    <div class="span3 pull-left">
+        <img src="../../../img/Buildings/Lumberjacks.png" />
+    </div>
+    <div class="pull-right">
+        Outside of your village in the dark forests your lumberjacks cut massive trees to produce wood in the timber camp, which is needed for buildings and weapons. The higher its level the more wood is produced.
+    </div>
+</div>
+@{
+    Html.RenderAction("ShowProduction", "Lumberjacks");
+}

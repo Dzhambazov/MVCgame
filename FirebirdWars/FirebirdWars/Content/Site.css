@@ -1,0 +1,149 @@
+﻿body
+{
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+body > .container {
+    background: white;
+    opacity: 0.95;
+}
+/* styles for validation helpers */
+.field-validation-error
+{
+    color: #b94a48;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+input.input-validation-error
+{
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error
+{
+    border: 0 none;
+}
+
+.validation-summary-errors
+{
+    color: #b94a48;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+/* styles for removing the background from form */
+.no-color
+{
+    background-color: white;
+    border-style: none;
+}
+
+#building-edit-grid table tr td input.single-line, #units-edit-grid table tr td input.single-line, #users-edit-grid table tr td input.single-line
+{
+    width: 40px;
+}
+
+#building-edit-grid table tr td input#Type, #units-edit-grid table tr td input#Type
+{
+    width: 100px;
+}
+
+#units-edit-grid table tr td input#BuildTime, #building-edit-grid table tr td input#BuildTime, #users-edit-grid table tr td input#Username
+{
+    width: 70px;
+}
+
+
+/* Map */
+
+.base
+{
+    z-index: 2;
+    position: absolute;
+}
+
+.p_Castle
+{
+    left: 172px;
+    top: 2px;
+}
+
+.p_Barracks
+{
+    left: 521px;
+    top: 128px;
+}
+
+.p_Farm
+{
+    left: 71px;
+    top: 148px;
+}
+
+.p_House
+{
+    left: 52px;
+    top: 247px;
+}
+
+.p_Iron_Mine
+{
+    left: 154px;
+    top: 360px;
+}
+
+.p_Lumberjacks
+{
+    left: 233px;
+    top: 295px;
+}
+
+.p_Stable
+{
+    left: 345px;
+    top: 284px;
+}
+
+.p_Workshop
+{
+    left: 464px;
+    top: 227px;
+}
+
+.empty[usermap]
+{
+    outline: medium none;
+}
+            
+.empty
+{
+    width: 724px;
+    height: 542px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 4;
+}
+
+#userMap
+{
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+
+player-details-info-section, .player-details-image-section {
+    float:left;
+    width:50%;
+}
+
+ 

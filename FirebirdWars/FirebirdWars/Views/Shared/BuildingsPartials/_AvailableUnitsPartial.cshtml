@@ -1,0 +1,50 @@
+﻿@model IEnumerable<FirebirdWars.Models.ViewModels.AvailableUnitsModel>
+
+
+<table class="table-striped table-hover table table-bordered">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th><img src="../../../img/Icons/Wood.png" title="Required Wood" alt="Required Wood" /></th>
+            <th><img src="../../../img/Icons/Food.png" title="Required Food" alt="Required Food" /></th>
+            <th><img src="../../../img/Icons/Iron.png" title="Required Iron" alt="Required Iron" /></th>
+            <th><img src="../../../img/Icons/Population.png" title="Required Population" alt="Required Population" /></th>
+            <th>Build Time</th>
+            <th>Speed</th>
+            <th>Infantry Power</th>
+            <th>Cavalry Power</th>
+            <th>Siege Artillery Power</th>
+            <th>Health Points</th>
+            <th>Count</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var unit in Model)
+        {
+            using (Html.BeginForm("RecruitUnit", "UnitsBuildings"))
+            {
+                <tr>
+                    <td>@unit.Type</td>
+                    <td>@unit.WoodCost</td>
+                    <td>@unit.FoodCost</td>
+                    <td>@unit.IronCost</td>
+                    <td>@unit.PopulationCost</td>
+                    <td>@unit.BuildTime</td>
+                    <td>@unit.Speed</td>
+                    <td>@unit.InfantryPower</td>
+                    <td>@unit.CavalryPower</td>
+                    <td>@unit.SiegeArtilleryPower</td>
+                    <td>@unit.HealthPoints</td>
+                    <td>
+                        <input style="width: 30px;" name="unitsCount" id="input-@unit.Id" type="text" /> <br /> Max: @unit.MaxUnits
+                        <input type="hidden" value="@unit.Id" name="unitId" />
+                     </td>
+                    <td>
+                         <input type="submit" value="Recruit" class="btn btn-success" /> 
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

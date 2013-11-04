@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNet.Identity;
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - Firebird Wars</title>
+        
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Styles.Render("~/Content/kendoUI/kendo")
+        @Styles.Render("~/Content/css1")
+        @Scripts.Render("~/bundles/kendo")
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Firebird Wars", "Index", "Home", new { area = "" }, new { @class = "brand" })
+                   
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <li>@Html.ActionLink("Admin Panel", "Index", "Administration")</li>
+                            }
+                            
+                            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Rankings", "PlayersTop", "Players")</li>
+                        </ul>
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            @* Render resources *@
+            @{
+                
+                if (User.Identity.IsAuthenticated)
+                {
+                    var context = new FirebirdWars.Models.ApplicationDbContext();
+                    string userGuidId = this.User.Identity.GetUserId();
+                    var currentUser = context.Users.FirstOrDefault(u => u.Id == userGuidId);
+                    
+                    @Html.Partial("_ResourcesPartial", currentUser)
+                }
+            }
+       
+            
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Firedbird Wars</p>
+            </footer>
+        </div>
+        
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+        <script>
+            $(document).ready(function () {
+                $(".text-box").css("width", "50px");
+            })
+        </script>
+    </body>
+</html>

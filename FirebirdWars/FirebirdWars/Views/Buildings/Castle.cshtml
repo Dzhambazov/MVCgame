@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Castle";
+}
+
+<h2>Castle</h2>
+
+<fieldset>
+    <legend>Buildings in progress</legend>
+    @{
+        Html.RenderAction("GetAllUserBuildingsInProgress", "Castle");
+    }
+</fieldset>
+
+<fieldset>
+    <legend>Available buildings</legend>
+    @{
+        Html.RenderAction("GetAllAvailableBuildings", "Castle");
+    }
+</fieldset>
+
+<fieldset>
+    <legend>Your buildings</legend>
+    @{
+        Html.RenderAction("GetUserBuildings", "Castle");
+    }
+</fieldset>
+
+@*<fieldset>
+    <legend>Units</legend>
+    @{
+        Html.RenderAction("GetAllUserUnits", "Castle");
+    }
+</fieldset>*@
+ 

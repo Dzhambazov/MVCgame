@@ -1,0 +1,24 @@
+﻿@model FirebirdWars.Models.ApplicationUser
+@{
+    ViewBag.Title = "Home Page";  
+}
+
+<div class="row-fluid">
+    <div class="pull-left">
+        <fieldset>
+            <legend>Buildings</legend>
+            @Html.Partial("HomePartials/_UserBuildingsPartial", Model.Buildings)
+        </fieldset>
+    </div>
+
+    <div class="pull-right">
+        <fieldset>
+            <legend>Resourse production</legend>
+            @Html.Partial("HomePartials/_ResourceProductionPartial", Model)
+        </fieldset>
+        <fieldset>
+            <legend>Units</legend>
+            @Html.Partial("HomePartials/_UserUnitsPartial", Model.Units)
+        </fieldset>
+    </div>
+</div>

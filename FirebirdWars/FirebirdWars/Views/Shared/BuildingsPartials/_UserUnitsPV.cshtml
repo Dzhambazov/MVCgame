@@ -1,0 +1,23 @@
+﻿@using FirebirdWars.Models.ViewModels
+@model IEnumerable<UserUnitsVM>
+
+<table class="table-striped table-hover table table-bordered" id="user-buildings">
+    @if (Model.Any())
+    {
+        <thead>
+            <tr>
+                <th>Unit</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var unit in Model)
+            {
+                <tr>
+                    <td>@unit.Unit</td>
+                    <td>@unit.Count</td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>

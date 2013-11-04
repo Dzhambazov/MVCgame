@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Iron Mine";
+}
+
+<h2>Iron Mine</h2>
+
+<div class="hero-unit row-fluid">
+    <div class="pull-left">
+        <img src="../../../img/Buildings/Iron Mine.png" />
+    </div>
+    <div class="pull-right">
+        In the iron mine your workers dig the war-crucial iron. The higher its level the more iron is produced.
+    </div>
+</div>
+@{
+    Html.RenderAction("ShowProduction", "IronMine");
+}

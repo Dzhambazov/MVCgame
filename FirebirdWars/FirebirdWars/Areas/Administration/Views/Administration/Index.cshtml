@@ -1,0 +1,178 @@
+﻿@model  IEnumerable<FirebirdWars.Areas.Administration.Models.ViewModels.BuildingModelAdmin>
+@using FirebirdWars.Areas.Administration.Models.ViewModels
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Edit Buildings</h2>
+
+
+@(Html.Kendo().TabStrip()
+        .Name("panelbar")
+        //.ExpandMode(PanelBarExpandMode.Single)
+        .Items(panelbar =>
+        {
+            panelbar.Add().Text("Edit Buildings")
+                //.Expanded(true)
+                .Content(
+                @<div>
+                    @(
+                         Html.Kendo().Grid<BuildingModelAdmin>()
+                            .Name("building-edit-grid")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(model => model.Type);
+                                columns.Bound(model => model.WoodCost).Width(50);
+                                columns.Bound(model => model.FoodCost).Width(50);
+                                columns.Bound(model => model.IronCost).Width(50);
+                                columns.Bound(model => model.PopulationCost).Width(50);
+                                columns.Bound(model => model.BuildTime).Width(50);
+                                columns.Command(command =>
+                                {
+                                    command.Edit();
+                                    command.Destroy();
+                                });
+                            })
+
+                            .DataSource(data =>
+                            {
+                                data.Ajax()
+                                    .Model(m => m.Id(cat => cat.Id))
+                                    .PageSize(5)
+                                    .ServerOperation(true)
+                                    .Read("GetAllBuildings", "Administration")
+                                    .Update("EditBuilding", "Administration")
+                                    .Destroy("DeleteBuilding", "Administration");
+                            })
+                            .Pageable()
+                                .Events(ev =>
+                                {
+                                    ev.DataBound("onDataBound");
+                                    ev.Edit("onEdit");
+                                })
+                            .Sortable(sort =>
+                            {
+                                sort.AllowUnsort(false);
+                            }))
+                </div>
+                );
+
+
+            panelbar.Add().Text("Edit Units")
+                //.Expanded(false)
+                .Content(
+                @<div>
+                    @(
+                     Html.Kendo().Grid<UnitModelAdmin>()
+                        .Name("units-edit-grid")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(model => model.Type);
+                            columns.Bound(model => model.FoodCost).HeaderTemplate("Food");
+                            columns.Bound(model => model.IronCost).HeaderTemplate("Iron");
+                            columns.Bound(model => model.WoodCost).HeaderTemplate("Wood");
+                            columns.Bound(model => model.PopulationCost).HeaderTemplate("Population");
+                            columns.Bound(model => model.InfantryPower).HeaderTemplate("vs Infantry");
+                            columns.Bound(model => model.SiegeArtilleryPower).HeaderTemplate("vs Siege");
+                            columns.Bound(model => model.Speed);
+                            columns.Bound(model => model.CavalryPower).HeaderTemplate("vs Cvalery");
+                            columns.Bound(model => model.HealthPoints).HeaderTemplate("HP");
+                            columns.Bound(model => model.BuildTime).HeaderTemplate("Time");
+                            columns.Bound(model => model.CarryingCapacity).HeaderTemplate("Capacity");
+                            columns.Command(command =>
+                            {
+                                command.Edit();
+                                command.Destroy();
+                            });
+                        })
+                        .ToolBar(tool =>
+                        {
+                            tool.Create().Text("Add New Unit");
+                        })
+
+                        .DataSource(data =>
+                        {
+                            data.Ajax()
+                                .Model(m => m.Id(cat => cat.Id))
+                                .PageSize(5)
+                                .ServerOperation(true)
+                                .Read("GetAllUnits", "Administration")
+                                .Update("EditUnit", "Administration")
+                                .Destroy("DeleteUnit", "Administration")
+                                .Create("CreateNewUnit", "Administration");
+                        })
+                        .Pageable()
+                        .Sortable(sort =>
+                        {
+                            sort.AllowUnsort(false);
+                        }))
+                </div>
+                );
+                
+                panelbar.Add().Text("Edit Users")
+                //.Expanded(false)
+                .Content(
+                @<div>
+                    @(
+                     Html.Kendo().Grid<UserModelAdmin>()
+                        .Name("users-edit-grid")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(model => model.Username);
+                            columns.Bound(model => model.Food).HeaderTemplate("Food");
+                            columns.Bound(model => model.Iron).HeaderTemplate("Iron");
+                            columns.Bound(model => model.Wood).HeaderTemplate("Wood");
+                            columns.Bound(model => model.Population).HeaderTemplate("Population");
+                            columns.Command(command =>
+                            {
+                                command.Edit();
+                            });
+                        })
+                        .DataSource(data =>
+                        {
+                            data.Ajax()
+                                .Model(m => m.Id(cat => cat.Id))
+                                .PageSize(5)
+                                .ServerOperation(true)
+                                .Read("GetAllUsers", "Administration")
+                                .Update("EditUser", "Administration");
+                        })
+                        .Pageable()
+                        .Sortable(sort =>
+                        {
+                            sort.AllowUnsort(false);
+                        }))
+                </div>
+                );
+}))
+
+
+
+
+<script>
+    function onDataBound() {
+        $("#building-edit-grid tbody tr .k-grid-delete").each(function () {
+            var currentDataItem = $("#building-edit-grid").data("kendoGrid").dataItem($(this).closest("tr"));
+
+            if (currentDataItem.Type == "Castle" || currentDataItem.Type == "Lumberjacks" ||
+                currentDataItem.Type == "Farm" || currentDataItem.Type == "Iron Mine") {
+                $(this).remove();
+            }
+        })
+    }
+
+    function onEdit() {
+        $(".k-grid-cancel").on("click", function () {
+            setTimeout(function () {
+                console.log("trigger");
+                $("#building-edit-grid").data("kendoGrid").trigger("dataBound");
+            });
+        })
+    }
+</script>
+
+<div id="test_div"></div>
+@*@Html.Partial("AdministrationPartials/_BuildingsEditPartial", Model.Buildings)*@
+
+

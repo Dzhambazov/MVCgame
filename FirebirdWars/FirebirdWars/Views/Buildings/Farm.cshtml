@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Farm";
+}
+
+<h2>Farm</h2>
+
+<div class="hero-unit row-fluid">
+    <div class="pull-left">
+        <img src="../../../img/Buildings/Farm.png" />
+    </div>
+    <div class="pull-right">
+        In the farm workers produce food for your population and buildings. Upgrade your farm for more food.
+    </div>
+</div>
+@{
+    Html.RenderAction("ShowProduction", "IronMine");
+}

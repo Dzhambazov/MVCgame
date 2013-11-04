@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Workshop";
+    ViewBag.Id = 8;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<fieldset>
+    <legend>Units In Progress</legend>
+    @{
+        Html.RenderAction("GetUnitsInProgress", "UnitsBuildings", new { id = ViewBag.Id });
+    }
+</fieldset>
+
+<fieldset>
+    <legend>Available Units</legend>
+    @{
+        Html.RenderAction("GetAvailableUnits", "UnitsBuildings", new { id = ViewBag.Id });
+    }
+
+</fieldset>
+

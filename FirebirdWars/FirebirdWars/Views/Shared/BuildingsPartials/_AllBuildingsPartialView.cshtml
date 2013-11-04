@@ -1,0 +1,33 @@
+﻿@using FirebirdWars.Models.ViewModels
+
+@model IEnumerable<BuildingModel>
+
+<table class="table-striped table-hover table table-bordered">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Required Wood</th>
+            <th>Required Food</th>
+            <th>Required Iron</th>
+            <th>Population Cost</th>
+            <th>BuildTime</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var building in Model)
+        {
+                    <tr>
+                        <td>@building.Type</td>
+                        <td>@building.WoodCost</td>
+                        <td>@building.FoodCost</td>
+                        <td>@building.IronCost</td>
+                        <td>@building.PopulationCost</td>
+                        <td>@building.BuildTime</td>
+                        <td>
+                            @Html.ActionLink("Build", "CreateBuilding", "Castle", new { id = building.Id }, new { @class = "btn btn-success" })
+                        </td>
+                    </tr>
+        }
+    </tbody>
+</table>

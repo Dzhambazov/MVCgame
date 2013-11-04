@@ -1,0 +1,37 @@
+﻿@using FirebirdWars.Models.ViewModels
+
+@model IEnumerable<UserBuildingModel>
+
+
+<table class="table-striped table-hover table table-bordered" id="user-buildings">
+    @if (Model.Any())
+    {
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Required Wood</th>
+            <th>Required Food</th>
+            <th>Required Iron</th>
+            <th>Population Cost</th>
+            <th>BuildTime</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var building in Model)
+        {
+                    <tr>
+                        <td>@building.Type (Level @building.Level)</td>
+                        <td>@building.RequiredWood</td>
+                        <td>@building.RequiredFood</td>
+                        <td>@building.RequiredIron</td>
+                        <td>@building.RequiredPopulation</td>
+                        <td>@building.BuildTime</td>
+                        <td>
+                            @Html.ActionLink("Upgrade", "UpgradeBuilding", "Castle", new { id = building.Id }, new { @class = "btn btn-info" })
+                        </td>
+                    </tr>
+        }
+    </tbody>
+    }
+</table>

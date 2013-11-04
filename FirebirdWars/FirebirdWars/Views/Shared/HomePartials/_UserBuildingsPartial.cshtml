@@ -1,0 +1,21 @@
+﻿@model IEnumerable<FirebirdWars.Models.UserBuilding>
+
+<div id="userMap">
+    <img usemap="#map" alt="" src="img/Buildings/1x1.png" class="empty">
+    <img src="img/Buildings//Wall.png" alt="" />
+    @{
+        foreach (var building in Model)
+        {
+            <img alt="@building.Building.Type" src="img/Buildings/@(building.Building.Type).png" class="p_@(building.Building.Type.Replace(' ', '_')) base">
+        }
+    }
+
+    <map name="map">
+        @{
+            foreach (var building in Model)
+            {
+                <area shape="poly" coords="@building.Building.Coords" href="Buildings/Building/@building.BuildingId/@building.Building.Type" alt="@building.Building.Type" title="@building.Building.Type ( Level @building.BuildingLevel )" />
+            }
+        }
+    </map>
+</div>

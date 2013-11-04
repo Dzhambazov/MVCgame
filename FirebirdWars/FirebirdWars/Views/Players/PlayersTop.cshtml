@@ -1,0 +1,67 @@
+﻿@model  IEnumerable<FirebirdWars.Models.ViewModels.PlayerModel>
+@using FirebirdWars.Models.ViewModels;
+@{
+    ViewBag.Title = "Ranking Page";
+}
+
+<h2>Ranking Page</h2>
+ 
+@(
+ Html.Kendo().Grid<PlayerModel>()
+    .Name("players-edit-grid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Rank).HeaderTemplate("Rank").Width(30);
+        columns.Bound(model => model.PlayerName).HeaderTemplate("Name");
+        columns.Bound(model => model.Points).HeaderTemplate("Points");
+        columns.Command(command => command.Custom("Details").Click("showDetails")).HeaderTemplate("Details");
+    })
+    .DataSource(data =>
+    {
+        data.Ajax()
+            .Model(m => m.Id(cat => cat.Id))
+            .PageSize(5)
+            .ServerOperation(true)
+            .Read(read => read.Action("GetTopPlayers", "Players"));
+            //.Update("EditUser", "Administration");
+    })
+    .Pageable()
+    .Sortable())
+
+
+@(Html.Kendo().Window().Name("Details")
+    .Title("Player Details")
+    .Visible(false)
+    .Modal(true)
+    .Draggable(true)
+    .Width(300)
+)
+
+<script type="text/x-kendo-template" id="tempalte">
+    <div id="details-containet">
+        <h2>#= PlayerName #</h2>
+
+        <div class="player-details-image-section">
+            <img src="http://www.eis.mdx.ac.uk/research/eit/CancerWebPage/images/Mugs/male_user_icon.png" width="120" />
+        </div>
+
+        <div class="player-details-info-section">
+            <p><strong>Points: </strong> #= Points # </p>
+            <p><strong>Distance: </strong>#: Distance #</p>
+            <p><a class="btn" href="/Attack/Attack/#: PlayerName #">Attack</a> </p>
+            <a href="/Messages/Converstation/#= Id #"><img src="https://cdn1.iconfinder.com/data/icons/UII_Icons/48x48/email.png" width="32" /></a>
+            @*@Ajax.ActionLink("Message", "Converstation", "Messages", new { id = 1 }, new AjaxOptions { HttpMethod = "POST" })*@
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    var detailsTemplate = kendo.template($("#tempalte").html());
+    function showDetails(e) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#Details").data("kendoWindow");
+
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
+</script>

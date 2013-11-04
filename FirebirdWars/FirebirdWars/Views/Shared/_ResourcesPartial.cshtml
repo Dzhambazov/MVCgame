@@ -1,0 +1,24 @@
+﻿@model FirebirdWars.Models.ApplicationUser
+
+@{
+    <table class="table-striped table-hover table table-bordered">
+        <tr>
+            <td>
+                Wood:
+                @Model.Wood
+            </td>
+            <td>
+                Food:
+                @Model.Food
+            </td>
+            <td>
+                Iron:
+                @Model.Iron
+            </td>
+            <td>
+                Population:
+                @Model.Population / @Model.MaxPopulation
+            </td>
+        </tr>
+    </table>
+}

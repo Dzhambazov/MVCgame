@@ -1,0 +1,12 @@
+﻿@model FirebirdWars.Models.ViewModels.ResourceBuildingModel
+
+<table class="table-striped table-hover table table-bordered">
+    <tr>
+        <td>Current Production</td>
+        <td>@Model.CurrentProduction @Model.ResourceType per hour</td>
+    </tr>
+    <tr>
+        <td>Next Level Production</td>
+        <td>@Model.NextLevelProduction @Model.ResourceType per hour</td>
+    </tr>
+</table>
